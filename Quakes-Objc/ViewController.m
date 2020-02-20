@@ -10,6 +10,15 @@
 #import "LSILog.h"
 #import "LSIFirstResponder.h"
 
+
+
+// swift
+//typealias WeatherCompletion = (Bool, Error) -> void
+
+// typedef returnType (^TypeName)(parameterTypes);
+typedef void (^weatherCompletion)(int temperature);
+
+
 @interface ViewController ()
 
 @end
@@ -33,7 +42,46 @@
     
     responder.name = @"John";
     NSLog(@"name: %@", responder.name);
+    
+    // Blocks
+    
+    //swift
+//    let addNumbers = {(a:Int, b:  Int)} -> Int in {
+//        a + b
+//    }
+    
+    
+    //returnType (^bloackName)(parameterName) = ^returnType(parameters){
+//}
+    
+    int (^addNumbers)(int a, int b) = ^int(int a, int b){
+        return a + b;
+    };
+    
+ 
+    int result = addNumbers(5,6);
+    NSLog(@"The sum is: %d", result);
+ 
+    
+   [self doWorkAndCallCompletion:^(int temperature) {
+        NSLog(@"finished the work, now updating the UI with %d", temperature);
+    }];
+    
+    [self doWorkAndCallCompletion:^(int temperature) {
+        
+    }];
+    
+    
 }
 
+//- (void)
+//doWorkAndCallCompletion:(void (^)(int temperture))completion {
+- (void)
+doWorkAndCallCompletion:(weatherCompletion)completion {
+    
+    
+    NSLog(@"Doing work....");
+    completion(27);
+}
 
 @end
